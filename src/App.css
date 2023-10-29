@@ -1,0 +1,32 @@
+@media(max-width:578px){
+  :where(.css-dev-only-do-not-override-xu9wm8).ant-table-wrapper .ant-table-cell,
+:where(.css-dev-only-do-not-override-xu9wm8).ant-table-wrapper
+  .ant-table-thead
+  > tr
+  > th,
+:where(.css-dev-only-do-not-override-xu9wm8).ant-table-wrapper
+  .ant-table-tbody
+  > tr
+  > th,
+:where(.css-dev-only-do-not-override-xu9wm8).ant-table-wrapper
+  .ant-table-tbody
+  > tr
+  > td,
+:where(.css-dev-only-do-not-override-xu9wm8).ant-table-wrapper tfoot > tr > th,
+:where(.css-dev-only-do-not-override-xu9wm8).ant-table-wrapper tfoot > tr > td {
+  padding: 5px 3px !important;
+}
+.ant-pagination .ant-pagination-item a{
+  padding: 0 0 !important;
+}
+
+.ant-pagination .ant-pagination-item{
+  height: 24px !important;
+  min-width: 24px !important;
+  line-height: 23px !important;
+}
+
+.ant-table-pagination{
+  row-gap: 0px !important;
+}
+}
