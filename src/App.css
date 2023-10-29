@@ -1,15 +1,33 @@
 @media(max-width:578px){
-.ant-pagination .ant-pagination-item a{
-  padding: 0 0 !important;
-}
-
-.ant-pagination .ant-pagination-item{
-  height: 24px !important;
-  min-width: 24px !important;
-  line-height: 23px !important;
-}
-
-.ant-table-pagination{
-  row-gap: 0px !important;
-}
-}
+  .ant-pagination .ant-pagination-item a{
+    padding: 0 0 !important;
+  }
+  
+  .ant-pagination .ant-pagination-item{
+    height: 24px !important;
+    min-width: 24px !important;
+    line-height: 23px !important;
+  }
+  
+  .ant-table-pagination{
+    row-gap: 0px !important;
+  }
+  }
+  
+  :where(.css-dev-only-do-not-override-xu9wm8).ant-table-wrapper .ant-table-thead >tr>th, :where(.css-dev-only-do-not-override-xu9wm8).ant-table-wrapper .ant-table-thead >tr>td{
+    background: #074972 !important;
+    color: white !important;
+  }
+  
+  :where(.css-dev-only-do-not-override-xu9wm8).ant-table-wrapper .ant-table{
+    background: #074972 !important;
+    color: white !important;
+  }
+  
+  
+  
+  .ant-table-cell-row-hover{
+   color: black !important;
+   font-weight: 600;
+   cursor: pointer !important;
+  }

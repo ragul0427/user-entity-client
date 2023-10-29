@@ -5,14 +5,14 @@ import EditNoteIcon from "@mui/icons-material/EditNote";
 import { Button, Form, Input, Modal, Table } from "antd";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import moment from "moment"
+import moment from "moment";
+import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 
 function App() {
   const [open, setOpen] = useState(false);
   const [data, setData] = useState([]);
   const [updateId, setUpdateId] = useState("");
   const [form] = Form.useForm();
- 
 
   const fetchData = async () => {
     try {
@@ -31,41 +31,38 @@ function App() {
 
   const handleEdit = (val) => {
     setUpdateId(val.id);
-    setOpen(!open)
-    form.setFieldsValue(val)
+    setOpen(!open);
+    form.setFieldsValue(val);
   };
 
   const handleFinish = async (values) => {
     if (updateId !== "") {
-      console.log("reuwnask")
+      console.log("reuwnask");
       try {
-        await axios.patch(`${process.env.REACT_APP_API_URI}/update/${updateId}`, values);
+        await axios.patch(
+          `${process.env.REACT_APP_API_URI}/update/${updateId}`,
+          values
+        );
         fetchData();
-        setUpdateId("")
-        form.resetFields("")
-        setOpen(!open)
-
+        setUpdateId("");
+        form.resetFields("");
+        setOpen(!open);
       } catch (err) {
         console.log(err, "error");
       }
     } else {
-      
       try {
         await axios.post(`${process.env.REACT_APP_API_URI}/create`, values);
         fetchData();
-        setOpen(!open)
-        form.resetFields("")
+        setOpen(!open);
+        form.resetFields("");
       } catch (err) {
         console.log(err, "error");
       }
-      
     }
   };
 
-  
-
   const handleDelete = async (val) => {
-    
     try {
       await axios.put(`${process.env.REACT_APP_API_URI}/deleteuser`, {
         id: val.id,
@@ -89,26 +86,29 @@ function App() {
       title: <h1 className="text-[16px]">FirstName</h1>,
       dataIndex: "firstName",
       key: "firstName",
-      render:(text)=><div className="text-[16px]">{text}</div>
+      render: (text) => <div className="text-[16px]">{text}</div>,
     },
     {
       title: <h1 className="text-[16px]">LastName</h1>,
       dataIndex: "lastName",
       key: "lastName",
-      render:(text)=><div className="text-[16px]">{text}</div>
-
+      render: (text) => <div className="text-[16px]">{text}</div>,
     },
     {
       title: <h1 className="text-[16px]">D.O.B</h1>,
       dataIndex: "dob",
       key: "dob",
-      render:(text)=><div className="text-[16px]">{moment(text, 'YYYY-MM-DD').format('DD-MM-YYYY')}</div>
+      render: (text) => (
+        <div className="text-[16px]">
+          {moment(text, "YYYY-MM-DD").format("DD-MM-YYYY")}
+        </div>
+      ),
     },
     {
       title: <h1 className="text-[16px]">Address</h1>,
       dataIndex: "address",
       key: "address",
-      render:(text)=><div className="text-[16px]">{text}</div>
+      render: (text) => <div className="text-[16px]">{text}</div>,
     },
     {
       title: <h1 className="text-[16px]">Actions</h1>,
@@ -117,7 +117,7 @@ function App() {
           <div className="flex items-center justify-center md:gap-2 text-[10px] w-[10vw]">
             <div className="text-green-500  cursor-pointer">
               <EditNoteIcon
-                className="!text-[18px] md:!text-[20px]"
+                className="!text-[20px] md:!text-[24px]"
                 onClick={() => {
                   handleEdit(res);
                 }}
@@ -129,7 +129,7 @@ function App() {
                 handleDelete(res);
               }}
             >
-              <DeleteIcon className="!text-[16px] md:!text-[18px]" />
+              <DeleteIcon className="!text-[18px] md:!text-[22px]" />
             </div>
           </div>
         );
@@ -139,7 +139,7 @@ function App() {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <div className="bg-gradient-to-r from-blue-500 to-pink-500 py-3 w-screen text-white flex justify-around">
+      <div className="bg-gradient-to-r from-[#02314E] to-[#0d76b8] py-3 w-screen text-white flex justify-around border-b">
         <h1 className="md:text-xl"> Full Stack Application For User Entity</h1>
         <AddCircleOutlineIcon
           onClick={() => {
@@ -148,8 +148,18 @@ function App() {
           className="cursor-pointer"
         />
       </div>
-      <div className="xsm:!w-[100vw] md:w-[90vw] pt-10 ">
-        <Table columns={columns} dataSource={data} className="w-[100vw]" scroll={{x:1000}}/>
+      
+      <div className="xsm:!w-[100vw] md:w-[90vw] pt-10 h-screen !w-screen bg-gradient-to-r from-[#02314E] to-[#0d76b8]">
+      <div className="md:hidden !text-white float-right pr-2"><ArrowRightAltIcon/></div>
+        <Table
+          columns={columns}
+          dataSource={data}
+          className="w-[98vw] md:w-[80vw] m-auto"
+          scroll={{ x: 1000 }}
+          pagination={{
+            pageSize: 5,
+          }}
+        />
       </div>
 
       <Modal
@@ -213,14 +223,14 @@ function App() {
               onClick={() => {
                 form.resetFields();
                 setOpen(!open);
-                setUpdateId("")
+                setUpdateId("");
               }}
               className="bg-red-500"
             >
               Cancel
             </Button>
             <Button type="primary" htmlType="submit" className="!bg-green-500">
-              {updateId!==""?"Update":"Save"}
+              {updateId !== "" ? "Update" : "Save"}
             </Button>
           </div>
         </Form>
