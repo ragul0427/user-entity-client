@@ -78,46 +78,46 @@ function App() {
 
   const columns = [
     {
-      title: <h1 className="text-[9px] md:text-[14px] w-[6vw]">S.no</h1>,
+      title: <h1 className="text-[16px]">S.no</h1>,
       dataIndex: "sno",
       key: "sno",
       render: (text, record, index) => {
-        return <h1 className="text-[10px] md:text-[14px] w-[5vw]">{index + 1}</h1>;
+        return <h1 className="text-[16px]">{index + 1}</h1>;
       },
     },
     {
-      title: <h1 className="text-[9px] md:text-[14px] w-[14.5vw]">FirstName</h1>,
+      title: <h1 className="text-[16px]">FirstName</h1>,
       dataIndex: "firstName",
       key: "firstName",
-      render:(text)=><div className="text-[10px] md:text-[14px] lg:!text-[16px] w-[14.5vw]">{text}</div>
+      render:(text)=><div className="text-[16px]">{text}</div>
     },
     {
-      title: <h1 className="text-[9px] md:text-[14px] w-[14.2vw]">LastName</h1>,
+      title: <h1 className="text-[16px]">LastName</h1>,
       dataIndex: "lastName",
       key: "lastName",
-      render:(text)=><div className="text-[10px] md:text-[14px] lg:!text-[16px] w-[14.2vw]">{text}</div>
+      render:(text)=><div className="text-[16px]">{text}</div>
 
     },
     {
-      title: <h1 className="text-[9px] md:text-[14px] w-[8vw]">D.O.B</h1>,
+      title: <h1 className="text-[16px]">D.O.B</h1>,
       dataIndex: "dob",
       key: "dob",
-      render:(text)=><div className="text-[9px]  md:text-[14px] lg:!text-[16px] w-[8vw]">{moment(text, 'YYYY-MM-DD').format('DD-MM-YYYY')}</div>
+      render:(text)=><div className="text-[16px]">{moment(text, 'YYYY-MM-DD').format('DD-MM-YYYY')}</div>
     },
     {
-      title: <h1 className="text-[9px] md:text-[14px] w-[15vw]">Address</h1>,
+      title: <h1 className="text-[16px]">Address</h1>,
       dataIndex: "address",
       key: "address",
-      render:(text)=><div className="text-[9px] md:text-[14px] lg:!text-[16px] w-[15vw]">{text}</div>
+      render:(text)=><div className="text-[16px]">{text}</div>
     },
     {
-      title: <h1 className="text-[9px] md:text-[14px] w-[10vw]">Actions</h1>,
+      title: <h1 className="text-[16px]">Actions</h1>,
       render: (res) => {
         return (
           <div className="flex items-center justify-center md:gap-2 text-[10px] w-[10vw]">
             <div className="text-green-500  cursor-pointer">
               <EditNoteIcon
-                className="!text-[14px] md:!text-[20px]"
+                className="!text-[18px] md:!text-[20px]"
                 onClick={() => {
                   handleEdit(res);
                 }}
@@ -129,7 +129,7 @@ function App() {
                 handleDelete(res);
               }}
             >
-              <DeleteIcon className="!text-[12px] md:!text-[18px]" />
+              <DeleteIcon className="!text-[16px] md:!text-[18px]" />
             </div>
           </div>
         );
@@ -139,7 +139,7 @@ function App() {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <div className="bg-red-500 py-3 w-screen text-white flex justify-around">
+      <div className="bg-gradient-to-r from-blue-500 to-pink-500 py-3 w-screen text-white flex justify-around">
         <h1 className="md:text-xl"> Full Stack Application For User Entity</h1>
         <AddCircleOutlineIcon
           onClick={() => {
@@ -148,8 +148,8 @@ function App() {
           className="cursor-pointer"
         />
       </div>
-      <div className="xsm:!w-[100vw] md:w-[90vw] pt-10">
-        <Table columns={columns} dataSource={data} className="w-[100vw] "/>
+      <div className="xsm:!w-[100vw] md:w-[90vw] pt-10 ">
+        <Table columns={columns} dataSource={data} className="w-[100vw]" scroll={{x:1000}}/>
       </div>
 
       <Modal
