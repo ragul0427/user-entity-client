@@ -42,7 +42,9 @@ function App() {
         await axios.patch(`${process.env.REACT_APP_API_URI}/update/${updateId}`, values);
         fetchData();
         setUpdateId("")
+        form.resetFields("")
         setOpen(!open)
+
       } catch (err) {
         console.log(err, "error");
       }
@@ -52,6 +54,7 @@ function App() {
         await axios.post(`${process.env.REACT_APP_API_URI}/create`, values);
         fetchData();
         setOpen(!open)
+        form.resetFields("")
       } catch (err) {
         console.log(err, "error");
       }
