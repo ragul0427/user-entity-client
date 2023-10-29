@@ -2,17 +2,23 @@ import "./App.css";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditNoteIcon from "@mui/icons-material/EditNote";
-import { Button, Form, Input, Modal, Table } from "antd";
+import { Button, Form, Input, Modal, Table, Alert } from "antd";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import moment from "moment";
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
+import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 
 function App() {
   const [open, setOpen] = useState(false);
   const [data, setData] = useState([]);
   const [updateId, setUpdateId] = useState("");
   const [form] = Form.useForm();
+  const [fieldErrors, setFieldErrors] = useState({
+    firstName: "",
+    lastName: "",
+    dob: "",
+    address: "",
+  });
 
   const fetchData = async () => {
     try {
@@ -58,10 +64,24 @@ function App() {
         form.resetFields("");
       } catch (err) {
         console.log(err, "error");
+        const errors = {};
+        if (err.response.data.message.includes("firstName")) {
+          errors.firstName = "First name is required";
+        }
+        if (err.response.data.message.includes("lastName")) {
+          errors.lastName = "Last name is required";
+        }
+        if (err.response.data.message.includes("dob")) {
+          errors.dob = "Date of birth is required";
+        }
+        if (err.response.data.message.includes("address")) {
+          errors.address = "Address is required";
+        }
+        setFieldErrors(errors);
       }
     }
   };
-
+  console.log(fieldErrors);
   const handleDelete = async (val) => {
     try {
       await axios.put(`${process.env.REACT_APP_API_URI}/deleteuser`, {
@@ -148,9 +168,11 @@ function App() {
           className="cursor-pointer"
         />
       </div>
-      
+
       <div className="xsm:!w-[100vw] md:w-[90vw] pt-10 h-screen !w-screen bg-gradient-to-r from-[#02314E] to-[#0d76b8]">
-      <div className="md:hidden !text-white float-right pr-2"><ArrowRightAltIcon/></div>
+        <div className="md:hidden !text-white float-right pr-2">
+          <ArrowRightAltIcon />
+        </div>
         <Table
           columns={columns}
           dataSource={data}
@@ -175,46 +197,59 @@ function App() {
           <Form.Item
             label="FirstName"
             name="firstName"
-            rules={[
-              {
-                required: true,
-              },
-            ]}
+            validateStatus={fieldErrors.firstName ? "error" : ""}
+            help={fieldErrors.firstName}
           >
-            <Input type="text" size="large" />
+            <Input
+              type="text"
+              size="large"
+              onChange={() => {
+                setFieldErrors({ ...fieldErrors, firstName: "" });
+              }}
+            />
           </Form.Item>
           <Form.Item
             label="LastName"
             name="lastName"
-            rules={[
-              {
-                required: true,
-              },
-            ]}
+            validateStatus={fieldErrors.lastName ? "error" : ""}
+            help={fieldErrors.lastName}
           >
-            <Input type="text" size="large" />
+            <Input
+              type="text"
+              size="large"
+              onChange={() => {
+                setFieldErrors({ ...fieldErrors, lastName: "" });
+              }}
+            />
           </Form.Item>
           <Form.Item
             label="Date Of Birth"
             name="dob"
-            rules={[
-              {
-                required: true,
-              },
-            ]}
+            validateStatus={fieldErrors.dob ? "error" : ""}
+            help={fieldErrors.dob}
           >
-            <Input type="date" className="w-[100%]" size="large" />
+            <Input
+              type="date"
+              className="w-[100%]"
+              size="large"
+              onChange={() => {
+                setFieldErrors({ ...fieldErrors, dob: "" });
+              }}
+            />
           </Form.Item>
           <Form.Item
             label="Address"
             name="address"
-            rules={[
-              {
-                required: true,
-              },
-            ]}
+            validateStatus={fieldErrors.address ? "error" : ""}
+            help={fieldErrors.address}
           >
-            <Input.TextArea type="text" size="large" />
+            <Input.TextArea
+              type="text"
+              size="large"
+              onChange={() => {
+                setFieldErrors({ ...fieldErrors, address: "" });
+              }}
+            />
           </Form.Item>
 
           <div className="flex gap-5 justify-end self-end">
@@ -224,6 +259,12 @@ function App() {
                 form.resetFields();
                 setOpen(!open);
                 setUpdateId("");
+                setFieldErrors({
+                  firstName: "",
+                  lastName: "",
+                  dob: "",
+                  address: "",
+                });
               }}
               className="bg-red-500"
             >
