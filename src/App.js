@@ -19,7 +19,7 @@ function App() {
     dob: "",
     address: "",
   });
-
+  const [currentPage, setCurrentPage] = useState(1);
   const fetchData = async () => {
     try {
       const result = await axios.get(
@@ -99,8 +99,10 @@ function App() {
       dataIndex: "sno",
       key: "sno",
       render: (text, record, index) => {
-        return <h1 className="text-[16px]">{index + 1}</h1>;
-      },
+        const sno = (currentPage - 1) * 5 + index +1;
+        return <div className="text-[16px] lg:text">{sno}</div>;
+    
+    },
     },
     {
       title: <h1 className="text-[16px]">FirstName</h1>,
@@ -180,7 +182,12 @@ function App() {
           scroll={{ x: 1000 }}
           pagination={{
             pageSize: 5,
+            current: currentPage,
+            onChange: (page) => {
+              setCurrentPage(page);
+            },
           }}
+
         />
       </div>
 
